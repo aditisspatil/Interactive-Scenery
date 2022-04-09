@@ -7,7 +7,7 @@ import { Sky } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/objects/
 
 const height_path = 'https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/height.jpg'
 const alpha_path ='https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/alpha.png' 
-const text_path = 'http://www.textures4photoshop.com/tex/thumbs/rocky-mountain-texture-seamless-thumb31.jpg'
+const text_path = 'https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/m_tex.jpg'
 
 function SceneManager(canvas) {
 
