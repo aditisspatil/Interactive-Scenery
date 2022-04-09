@@ -5,7 +5,7 @@ import { Water } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/object
 import { Sky } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/objects/Sky.js';
 
 
-const height_path = 'https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/f21f92dda3fc727b39ebb2ff66395677ab2c06ca/src/height.jpg'
+const height_path = 'https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/height.jpg'
 const alpha_path ='https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/m_tex.jpg' 
 const text_path = 'https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main/src/m_tex.jpg'
 
