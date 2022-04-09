@@ -9,11 +9,57 @@ function SceneManager(canvas) {
     const scene = buildScene();
     const renderer = buildRenderer(canvas);
     const camera = buildCamera();
-    // const sphere = buildSphere();
+
+    var terrain, terrain_tex, terrain_height, alpha;
+
+    const loader = new THREE.TextureLoader()
+    
+    
+
+    add_lights()
+    loadTextures();
     const sky = buildSky();
     const sun = buildSun();
     const water = buildWater();
+    renderer.render(scene, camera);
+
     // const orbitCon = setOrbitControls();
+
+    renderer.render(scene, camera);
+
+
+    function add_lights() {
+        const pointLight = new THREE.PointLight(0x046B41, 2)
+        pointLight.position.set(20, 50, 5)
+        scene.add(pointLight)
+
+        const pointLight2 = new THREE.PointLight(0x573A04, 5)
+        pointLight2.position.set(0, 50, 5)
+        scene.add(pointLight2)
+
+        const pointLight3 = new THREE.PointLight(0xffffff, 2)
+        pointLight3.position.set(30, 50, 50)
+        // scene.add(pointLight3)
+    }
+
+    function buildTerrain() {
+        // const height = loader.load('src/height.jpeg')
+        const plane_geometry = new THREE.PlaneBufferGeometry(300,200,500,20);
+        const plane_mat = new THREE.MeshStandardMaterial({
+            color: 0x394D04,
+            map: terrain_tex,
+            displacementMap: terrain_height,
+            displacementScale: 80,
+            alphaMap: alpha,
+            // transparent: true,
+            // depthTest: false
+        })
+        const plane = new THREE.Mesh( plane_geometry, plane_mat)
+        plane.rotation.x = 181
+        plane.position.set(-50, -20, -200)
+        scene.add(plane)
+        return plane;
+    }
 
     function buildScene() {
         const scene = new THREE.Scene();
@@ -105,14 +151,32 @@ function SceneManager(canvas) {
         return controls;
     }
 
-    this.update = function() {
-        // Animates water
-        water.material.uniforms[ 'time' ].value += 1.0 / 200.0;
+    function loadTextures() {
+        loader.load('/src/m_tex.jpg', function ( tex ) {
+            terrain_tex = tex
+            loader.load('/src/height.jpg', function ( height ) {
+                terrain_height = height
+                loader.load('/src/alpha.png', function ( a ) {
+                    alpha = a
+                    terrain = buildTerrain()
+                    renderer.render(scene, camera);
+                });
+            });
+        });
 
+        
+    }
+
+    this.update = function() {
         const time = performance.now() * 0.001;
-        // sphere.position.y = Math.sin( time ) * 2;
-        // sphere.rotation.x = time * 0.3;
-        // sphere.rotation.z = time * 0.3;
+
+        // Animates water
+        if ( water != null) {
+            water.material.uniforms[ 'time' ].value += 1.0 / 200.0;
+        }
+        if( terrain != null) {
+            // terrain.rotation.z = time * 0.3;
+        }
         renderer.render(scene, camera);
     }
 
