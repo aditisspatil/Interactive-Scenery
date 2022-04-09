@@ -8,6 +8,11 @@ import { Sky } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/objects/
 const webPath = "https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main"
 const localPath = ""
 
+const height_path = "https://github.com/aditisspatil/Interactive-Scenery/blob/f21f92dda3fc727b39ebb2ff66395677ab2c06ca/src/height.jpg"
+const alpha_path = 'https://github.com/aditisspatil/Interactive-Scenery/blob/f21f92dda3fc727b39ebb2ff66395677ab2c06ca/src/alpha.png'
+const text_path = "https://github.com/aditisspatil/Interactive-Scenery/blob/f21f92dda3fc727b39ebb2ff66395677ab2c06ca/src/m_tex.jpg"
+
+
 function SceneManager(canvas) {
 
     const scene = buildScene();
@@ -156,11 +161,11 @@ function SceneManager(canvas) {
     }
 
     function loadTextures() {
-        loader.load(webPath+'/src/m_tex.jpg', function ( tex ) {
+        loader.load(text_path, function ( tex ) {
             terrain_tex = tex
-            loader.load(webPath+'/src/height.jpg', function ( height ) {
+            loader.load(height_path, function ( height ) {
                 terrain_height = height
-                loader.load(webPath+'/src/alpha.png', function ( a ) {
+                loader.load(alpha_path, function ( a ) {
                     alpha = a
                     terrain = buildTerrain()
                     renderer.render(scene, camera);
