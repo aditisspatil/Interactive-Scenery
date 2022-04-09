@@ -4,6 +4,10 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.128.0/build/three.module
 import { Water } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/objects/Water.js';
 import { Sky } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/objects/Sky.js';
 
+
+const webPath = "https://gitcdn.link/cdn/aditisspatil/Interactive-Scenery/main"
+const localPath = ""
+
 function SceneManager(canvas) {
 
     const scene = buildScene();
@@ -152,11 +156,11 @@ function SceneManager(canvas) {
     }
 
     function loadTextures() {
-        loader.load('/src/m_tex.jpg', function ( tex ) {
+        loader.load(webPath+'/src/m_tex.jpg', function ( tex ) {
             terrain_tex = tex
-            loader.load('/src/height.jpg', function ( height ) {
+            loader.load(webPath+'/src/height.jpg', function ( height ) {
                 terrain_height = height
-                loader.load('/src/alpha.png', function ( a ) {
+                loader.load(webPath+'/src/alpha.png', function ( a ) {
                     alpha = a
                     terrain = buildTerrain()
                     renderer.render(scene, camera);
