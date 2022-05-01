@@ -1,0 +1,11 @@
+Model Information:
+* title:	Swimming Shark
+* source:	https://sketchfab.com/3d-models/swimming-shark-70b107e982d44869839197124c1728b0
+* author:	alfredonicolasalarcon (https://sketchfab.com/alfredonicolasalarcon)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Swimming Shark" (https://sketchfab.com/3d-models/swimming-shark-70b107e982d44869839197124c1728b0) by alfredonicolasalarcon (https://sketchfab.com/alfredonicolasalarcon) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

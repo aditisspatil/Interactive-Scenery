@@ -1,0 +1,11 @@
+Model Information:
+* title:	Peacock
+* source:	https://sketchfab.com/3d-models/peacock-77ebfe2aa4084e239bebb760bc848363
+* author:	César Vonc (https://sketchfab.com/cesarvonc)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Peacock" (https://sketchfab.com/3d-models/peacock-77ebfe2aa4084e239bebb760bc848363) by César Vonc (https://sketchfab.com/cesarvonc) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
