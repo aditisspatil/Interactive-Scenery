@@ -32,6 +32,12 @@ const ebaby_path = './model/elephant_baby/scene.gltf'
 
 var clock = new THREE.Clock();
 var fox_mixer, rhino_mixer, h_bird_mixer, bfly_mixer, ele_mixer, shark_mixer;
+var ele_animate, bfly_animate, fox_animate, hbird_animate, rhino_animate, shark_animate;
+
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
+
 
 function SceneManager(canvas) {
     const x_factor = 1000;
@@ -46,23 +52,38 @@ function SceneManager(canvas) {
     var river;
     var flag_tree = false;
 
-
-    var raycaster = new THREE.Raycaster();
-
     var gltfloader = new GLTFLoader()
     const loader = new THREE.TextureLoader()
     var flag_h1, flag_h2, flag_h3, flag_tx1, flag_a1 = false;
-
+    
+    buildRiver();
+    buildMountain();
     add_lights();
     buildFish();
     buildBird()
     buildAnimals()
-    buildRiver();
-    buildMountain();
+    
     const sky = buildSky();
     const sun = buildSun();
     const water = buildWater();
     renderer.render(scene, camera);
+
+    function onDocumentMouseDown( event ) {
+        event.preventDefault();
+        mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+        raycaster.setFromCamera( mouse, camera );
+        var intersects = raycaster.intersectObjects( scene.children, true ); 
+        if ( intersects.length > 0 ) {
+            for (var i =0; i < intersects.length ; i++){
+                if ( typeof intersects[i].object.callback === "function" ) {
+                    intersects[i].object.callback();
+                }
+            }
+        }
+    }
+    
+    window.addEventListener('click', onDocumentMouseDown, false);
 
     function add_lights() {
         let color = 0xfca65f
@@ -205,7 +226,7 @@ function SceneManager(canvas) {
                 gltf.asset; // Object
             },
             function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% Mountain loaded' ); },
-            function ( error ) { console.log( 'river terrain An error happened' ); }
+            function ( error ) { console.log( 'Mountain terrain An error happened' ); }
         );
     }
 
@@ -226,8 +247,18 @@ function SceneManager(canvas) {
                 fox_mixer = new THREE.AnimationMixer( gltf.scene );
                 gltf.animations.forEach( ( clip ) => {
                     fox_mixer.clipAction( clip ).play();
-                
                 } );
+
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[2].name = "FOx 0";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "FOx 0 clicked" ); 
+                    fox_animate = true;
+                }
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[3].name = "FOx 1";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[3].callback = function() { 
+                    console.log( "FOx 1 clicked" ); 
+                    fox_animate = true;
+                }
             },
             function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% fox loaded' ); },
             function ( error ) { console.log( 'fox An error happened' ); }
@@ -251,6 +282,12 @@ function SceneManager(canvas) {
                 gltf.animations.forEach( ( clip ) => {
                     rhino_mixer.clipAction( clip ).play();
                 } );
+
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].name = "Rhino";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "Rhino clicked" ); 
+                    rhino_animate = true;
+                }
             },
             function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% rhino loaded' ); },
             function ( error ) { console.log( 'rhino An error happened' ); }
@@ -270,6 +307,11 @@ function SceneManager(canvas) {
                 gltf.cameras; // Array<THREE.Camera>
                 gltf.asset; // Object
                 ele_mixer = new THREE.AnimationMixer( gltf.scene );
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[2].name = "elephant 0";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "ele clicked" ); 
+                    ele_animate = true;
+                }
                 gltf.animations.forEach( ( clip ) => {
                     ele_mixer.clipAction( clip ).play();
                 } );
@@ -296,11 +338,16 @@ function SceneManager(canvas) {
                 shark_mixer = new THREE.AnimationMixer( gltf.scene );
                 gltf.animations.forEach( ( clip ) => {
                     shark_mixer.clipAction( clip ).play();
-                
                 } );
+
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].name = "Shark";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "Shark clicked" ); 
+                    shark_animate = true;
+                }
             },
-            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% fox loaded' ); },
-            function ( error ) { console.log( 'fox An error happened' ); }
+            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% Shark loaded' ); },
+            function ( error ) { console.log( 'Shark An error happened' ); }
         );
     }
 
@@ -367,11 +414,16 @@ function SceneManager(canvas) {
                 h_bird_mixer = new THREE.AnimationMixer( gltf.scene );
                 gltf.animations.forEach( ( clip ) => {
                     h_bird_mixer.clipAction( clip ).play();
-                
                 } );
+
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].name = "H bird";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "Hbird clicked" ); 
+                    hbird_animate = true;
+                }
             },
-            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% fox loaded' ); },
-            function ( error ) { console.log( 'fox An error happened' ); }
+            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% humming bird loaded' ); },
+            function ( error ) { console.log( 'humming bird An error happened' ); }
         );
 
         gltfloader.load(
@@ -391,11 +443,16 @@ function SceneManager(canvas) {
                 bfly_mixer = new THREE.AnimationMixer( gltf.scene );
                 gltf.animations.forEach( ( clip ) => {
                     bfly_mixer.clipAction( clip ).play();
-                
                 } );
+
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].name = "Butterfly";
+                gltf.scene.children[0].children[0].children[0].children[0].children[0].children[0].children[2].callback = function() { 
+                    console.log( "Butterfly clicked" ); 
+                    bfly_animate = true;
+                }
             },
-            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% fox loaded' ); },
-            function ( error ) { console.log( 'fox An error happened' ); }
+            function ( xhr ) { console.log( ( xhr.loaded / xhr.total * 100 ) + '% Butterfly loaded' ); },
+            function ( error ) { console.log( 'Butterfly An error happened' ); }
         );
     }
 
@@ -603,39 +660,6 @@ function SceneManager(canvas) {
         return controls;
     }
 
-    function loadTextures() {
-        loader.load(text_path, function ( tex ) {
-            terrain_tex = tex
-            flag_tx1 = true
-            buildTerrain()
-            renderer.render(scene, camera);
-        });
-        loader.load(alpha_path, function ( a ) {
-            alpha = a
-            flag_a1 = true
-            buildTerrain()
-            renderer.render(scene, camera);
-        });
-        loader.load(height_path_1, function ( height ) {
-            terrain_height_1 = height
-            flag_h1 = true;
-            buildTerrain()
-            renderer.render(scene, camera);
-        });
-        loader.load(height_path_2, function ( height ) {
-            terrain_height_2 = height
-            flag_h2 = true;
-            buildTerrain()
-            renderer.render(scene, camera);
-        });
-        loader.load(height_path_3, function ( height ) {
-            terrain_height_3 = height
-            flag_h3 = true;
-            buildTerrain()
-            renderer.render(scene, camera);
-        });
-    }
-
     this.update = function() {
         const time = performance.now() * 0.001;
 
@@ -665,12 +689,12 @@ function animate() {
     requestAnimationFrame(animate);
     var delta = clock.getDelta();
   
-    if ( fox_mixer ) fox_mixer.update( delta );
-    if ( rhino_mixer ) rhino_mixer.update( delta );
-    if ( h_bird_mixer ) h_bird_mixer.update( delta );
-    if ( bfly_mixer ) bfly_mixer.update( delta );
-    if ( ele_mixer ) ele_mixer.update( delta );
-    if ( shark_mixer ) shark_mixer.update( delta );
+    if ( fox_animate && fox_mixer ) fox_mixer.update( delta );
+    if ( rhino_animate && rhino_mixer ) rhino_mixer.update( delta );
+    if ( hbird_animate && h_bird_mixer ) h_bird_mixer.update( delta );
+    if ( bfly_animate && bfly_mixer ) bfly_mixer.update( delta );
+    if ( ele_animate && ele_mixer ) ele_mixer.update( delta );
+    if ( shark_animate && shark_mixer ) shark_mixer.update( delta );
 
     sceneManager.update();
 }
